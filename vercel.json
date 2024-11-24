@@ -8,7 +8,7 @@
     ],
     "routes": [
       {
-        "src": "/api/test",
+        "src": "/api/protected",
         "dest": "/index.js"
       }
     ]

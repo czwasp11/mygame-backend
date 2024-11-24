@@ -10,9 +10,10 @@ app.get('/api/protected', protect, (req, res) => {
   res.status(200).json({ message: 'This is a protected route' });
 });
 
-// Připojení k databázi a spuštění serveru
+// Připojení k databázi
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB připojeno'))
   .catch(err => console.log('Chyba při připojování k MongoDB:', err));
 
-  module.exports = app;
+// Vercel očekává funkci, která bude vracet odpovědi pro dané požadavky
+module.exports = app;

@@ -77,3 +77,6 @@ app.listen(PORT, () => {
   console.log(`Server běží na portu ${PORT}`);
 });
 
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
