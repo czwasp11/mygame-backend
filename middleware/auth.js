@@ -1,8 +1,5 @@
 const jwt = require('jsonwebtoken');
 
-// Ověření JWT tokenu
-const protect = (req, res, next) => {
-  let token;
 
   // Získání tokenu z hlavičky
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
@@ -23,7 +20,7 @@ const protect = (req, res, next) => {
   if (!token) {
     res.status(401).json({ message: 'No token, not authorized' });
   }
-};
+;
 
 module.exports = protect;
 
