@@ -11,6 +11,8 @@ app.get('/api/protected', protect, (req, res) => {
 });
 
 // Připojení k databázi a spuštění serveru
-mongoose.connect('YOUR_MONGO_CONNECTION_STRING', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(5000, () => console.log('Server running on port 5000')))
-  .catch((error) => console.log(error));
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB připojeno'))
+  .catch(err => console.log('Chyba při připojování k MongoDB:', err));
+
+  module.exports = app;

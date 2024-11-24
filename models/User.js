@@ -27,3 +27,34 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
+
+const jwt = require('jsonwebtoken');
+
+// Přihlášení uživatele a generování JWT tokenu
+app.post('/api/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    const isMatch = await user.matchPassword(password);
+
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid credentials' });
+    }
+
+    // Generování JWT tokenu
+    const token = jwt.sign({ id: user._id }, 'secretkey', { expiresIn: '1h' });
+
+    res.status(200).json({
+      message: 'Login successful',
+      token
+    });
+  } catch (error) {
+    res.status(500).json({ message: 'Server error', error });
+  }
+});
